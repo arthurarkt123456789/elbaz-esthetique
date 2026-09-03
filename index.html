@@ -51,7 +51,7 @@
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      padding: 0 clamp(20px, 5vw, 60px);
+      padding: 0 clamp(20px, 7vw, 120px);
       gap: 40px;
     }
 
@@ -258,7 +258,9 @@
     }
 
     /* ─── SECTIONS ─── */
-    section { padding: 80px clamp(24px, 5vw, 80px); }
+    section { padding: 80px clamp(24px, 7vw, 120px); }
+    .services-strip { padding: 18px clamp(24px, 7vw, 120px); }
+    .rdv-banner { padding: 80px clamp(24px, 7vw, 120px); }
 
     .section-label {
       font-size: 0.72rem;
@@ -382,11 +384,21 @@
     }
     .tab-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
 
-    .expertise-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+    /* ─── SLIDER ─── */
+    .slider-wrapper {
+      position: relative;
+      margin-top: 48px;
     }
+    .expertise-slider {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
+    .expertise-slider::-webkit-scrollbar { display: none; }
 
     .expertise-card {
       background: var(--surface);
@@ -394,6 +406,10 @@
       border-radius: var(--radius);
       overflow: hidden;
       transition: all var(--transition);
+      flex: 0 0 300px;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
     }
     .expertise-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); border-color: var(--gold); }
 
@@ -403,6 +419,7 @@
       overflow: hidden;
       position: relative;
       background: var(--surface-alt);
+      flex-shrink: 0;
     }
     .expertise-card-img img {
       width: 100%;
@@ -412,7 +429,7 @@
     }
     .expertise-card:hover .expertise-card-img img { transform: scale(1.04); }
 
-    .expertise-card-body { padding: 20px; }
+    .expertise-card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
     .expertise-card h3 {
       font-family: 'Playfair Display', serif;
       font-size: 1rem;
@@ -423,6 +440,7 @@
       font-size: 0.8rem;
       color: var(--text-muted);
       line-height: 1.55;
+      flex: 1;
     }
     .expertise-card-tag {
       display: inline-block;
@@ -433,6 +451,27 @@
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
+
+    /* Flèches slider */
+    .slider-arrows {
+      display: flex;
+      gap: 8px;
+      margin-top: 20px;
+      justify-content: flex-end;
+    }
+    .slider-arrow {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition);
+      color: var(--text-muted);
+    }
+    .slider-arrow:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-light); }
 
     /* ─── GALLERY ─── */
     .gallery { padding-top: 0; }
@@ -939,14 +978,10 @@
     }
     .nav-mobile-menu .nav-cta-mobile:hover { background: var(--gold-dark) !important; }
 
-    /* ─── TABLET 1024px ─── */
-    @media (max-width: 1024px) {
-      .expertise-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
     /* ─── TABLET 900px ─── */
     @media (max-width: 900px) {
       section { padding: 60px clamp(20px, 5vw, 48px); }
+      .rdv-banner { padding: 56px clamp(20px, 5vw, 48px); }
       .hero { grid-template-columns: 1fr; min-height: auto; }
       .hero-content { padding: 56px 24px 40px; order: 2; }
       .hero-visual { height: 60vw; max-height: 420px; order: 1; }
@@ -956,8 +991,7 @@
       .hero-stat-row { gap: 16px; padding-bottom: 12px; margin-bottom: 12px; }
       .about-grid { grid-template-columns: 1fr; gap: 32px; }
       .about-visual { aspect-ratio: 3/2; max-height: 380px; }
-      .expertise-grid { grid-template-columns: repeat(2, 1fr); }
-      .expertise-card[style*="span 2"] { grid-column: span 2; }
+      .expertise-card { flex: 0 0 260px; }
       .process-steps { grid-template-columns: 1fr; gap: 24px; }
       .process-steps::before { display: none; }
       .contact-layout { grid-template-columns: 1fr; }
@@ -984,10 +1018,7 @@
         background: var(--surface-alt);
         border-top: 1px solid var(--border);
       }
-      .expertise-grid { grid-template-columns: 1fr; }
-      .expertise-card[style*="span 2"] { grid-column: span 1; }
-      .expertise-card[style*="span 2"] > div { grid-template-columns: 1fr !important; }
-      .expertise-card[style*="span 2"] .expertise-card-img { aspect-ratio: 4/3 !important; height: auto !important; }
+      .expertise-card { flex: 0 0 75vw; }
       .form-grid { grid-template-columns: 1fr; }
       .hero-actions { flex-direction: column; }
       .hero-actions .btn { justify-content: center; width: 100%; }
@@ -1204,8 +1235,18 @@
   <h2 class="section-title">Interventions chirurgicales</h2>
   <p class="section-desc">Des interventions précises pour corriger, embellir et restaurer l'harmonie naturelle du visage.</p>
 
-  <div style="margin-top: 48px;">
-    <div class="expertise-grid">
+  <div class="slider-wrapper">
+    <div class="expertise-slider" id="sliderChirurgie">
+      <div class="expertise-card">
+        <div class="expertise-card-img">
+          <img src="images/rhinoplastie.avif" alt="Rhinoplastie" loading="lazy">
+        </div>
+        <div class="expertise-card-body">
+          <h3>Rhinoplastie</h3>
+          <p>Correction esthétique et fonctionnelle du nez pour retrouver une harmonie naturelle du visage.</p>
+          <span class="expertise-card-tag">Chirurgie Esthétique →</span>
+        </div>
+      </div>
       <div class="expertise-card">
         <div class="expertise-card-img">
           <img src="images/blepharoplastie.jpg" alt="Blépharoplastie" loading="lazy">
@@ -1216,7 +1257,6 @@
           <span class="expertise-card-tag">Chirurgie Esthétique →</span>
         </div>
       </div>
-
       <div class="expertise-card">
         <div class="expertise-card-img">
           <img src="images/lifting.jpg" alt="Lifting cervico-facial" loading="lazy">
@@ -1227,7 +1267,6 @@
           <span class="expertise-card-tag">Chirurgie Esthétique →</span>
         </div>
       </div>
-
       <div class="expertise-card">
         <div class="expertise-card-img">
           <img src="images/otoplastie.jpg" alt="Otoplastie" loading="lazy">
@@ -1238,7 +1277,6 @@
           <span class="expertise-card-tag">Chirurgie Esthétique →</span>
         </div>
       </div>
-
       <div class="expertise-card">
         <div class="expertise-card-img">
           <img src="images/lipostructure.jpg" alt="Lipostructure" loading="lazy">
@@ -1249,19 +1287,14 @@
           <span class="expertise-card-tag">Chirurgie Esthétique →</span>
         </div>
       </div>
-
-      <div class="expertise-card" style="grid-column: span 2;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr;">
-          <div class="expertise-card-img" style="aspect-ratio: 16/9; height: 100%;">
-            <img src="images/rhinoplastie.avif" alt="Rhinoplastie et chirurgie du visage" loading="lazy">
-          </div>
-          <div class="expertise-card-body" style="display: flex; flex-direction: column; justify-content: center;">
-            <h3>Rhinoplastie & Chirurgie du visage</h3>
-            <p>Correction esthétique et fonctionnelle du nez, traitement des lésions cutanées bénignes et malignes du visage.</p>
-            <span class="expertise-card-tag">Chirurgie Esthétique →</span>
-          </div>
-        </div>
-      </div>
+    </div>
+    <div class="slider-arrows">
+      <button class="slider-arrow" onclick="slide('sliderChirurgie', -1)" aria-label="Précédent">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="slider-arrow" onclick="slide('sliderChirurgie', 1)" aria-label="Suivant">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
   </div>
 </section>
@@ -1289,8 +1322,8 @@
   <h2 class="section-title">Soins et injections</h2>
   <p class="section-desc">Des traitements non-chirurgicaux pour entretenir et sublimer votre apparence, avec des résultats naturels.</p>
 
-  <div style="margin-top: 48px;">
-    <div class="expertise-grid">
+  <div class="slider-wrapper">
+    <div class="expertise-slider" id="sliderMedecine">
       <div class="expertise-card">
         <div class="expertise-card-img">
           <img src="images/botox.jpg" alt="Toxine botulique — Botox" loading="lazy">
@@ -1301,7 +1334,6 @@
           <span class="expertise-card-tag">Médecine Esthétique →</span>
         </div>
       </div>
-
       <div class="expertise-card">
         <div class="expertise-card-img">
           <img src="images/acide-hyaluronique.jpg" alt="Acide Hyaluronique" loading="lazy">
@@ -1312,7 +1344,6 @@
           <span class="expertise-card-tag">Médecine Esthétique →</span>
         </div>
       </div>
-
       <div class="expertise-card">
         <div class="expertise-card-img">
           <img src="images/mesotherapie.jpg" alt="Mésothérapie" loading="lazy">
@@ -1323,7 +1354,6 @@
           <span class="expertise-card-tag">Médecine Esthétique →</span>
         </div>
       </div>
-
       <div class="expertise-card">
         <div class="expertise-card-img">
           <img src="images/peeling.jpg" alt="Peeling et anti-taches" loading="lazy">
@@ -1334,10 +1364,9 @@
           <span class="expertise-card-tag">Médecine Esthétique →</span>
         </div>
       </div>
-
       <div class="expertise-card">
         <div class="expertise-card-img">
-          <img src="images/plaxpot.jpg" alt="PLAXPOT — Rajeunissement cutané" loading="lazy">
+          <img src="images/plaxpot.jpg" alt="PLAXPOT" loading="lazy">
         </div>
         <div class="expertise-card-body">
           <h3>PLAXPOT</h3>
@@ -1345,7 +1374,6 @@
           <span class="expertise-card-tag">Médecine Esthétique →</span>
         </div>
       </div>
-
       <div class="expertise-card">
         <div class="expertise-card-img">
           <img src="images/luminotherapie.jpg" alt="Luminothérapie" loading="lazy">
@@ -1356,6 +1384,14 @@
           <span class="expertise-card-tag">Médecine Esthétique →</span>
         </div>
       </div>
+    </div>
+    <div class="slider-arrows">
+      <button class="slider-arrow" onclick="slide('sliderMedecine', -1)" aria-label="Précédent">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="slider-arrow" onclick="slide('sliderMedecine', 1)" aria-label="Suivant">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
   </div>
 </section>
@@ -1612,6 +1648,12 @@
     mobileMenu.classList.remove('open');
     hamburger.classList.remove('open');
     document.body.style.overflow = '';
+  }
+
+  // Slider arrows
+  function slide(id, dir) {
+    const el = document.getElementById(id);
+    el.scrollBy({ left: dir * 316, behavior: 'smooth' });
   }
 
   // Stats mobiles
