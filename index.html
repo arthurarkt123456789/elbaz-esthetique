@@ -879,29 +879,127 @@
     .footer-bottom a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color var(--transition); }
     .footer-bottom a:hover { color: rgba(255,255,255,0.8); }
 
-    /* ─── MOBILE ─── */
+    /* ─── NAV MOBILE ─── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px; height: 1.5px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-h); left: 0; right: 0;
+      background: rgba(250,250,248,0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 99;
+      flex-direction: column;
+      padding: 16px 24px 24px;
+      gap: 4px;
+      box-shadow: var(--shadow);
+    }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color var(--transition);
+    }
+    .nav-mobile-menu a:last-child { border-bottom: none; }
+    .nav-mobile-menu a:hover { color: var(--text); }
+    .nav-mobile-menu .nav-cta-mobile {
+      margin-top: 12px;
+      background: var(--text);
+      color: #fff !important;
+      text-align: center;
+      padding: 14px !important;
+      border-radius: 40px;
+      border-bottom: none !important;
+      font-weight: 600 !important;
+    }
+    .nav-mobile-menu .nav-cta-mobile:hover { background: var(--gold-dark) !important; }
+
+    /* ─── TABLET 1024px ─── */
     @media (max-width: 1024px) {
       .expertise-grid { grid-template-columns: repeat(2, 1fr); }
-      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
     }
+
+    /* ─── TABLET 900px ─── */
     @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-visual { height: 55vw; max-height: 400px; }
-      .hero-visual-card { left: 16px; bottom: 16px; }
-      .about-grid { grid-template-columns: 1fr; }
-      .about-visual { aspect-ratio: 16/9; }
-      .expertise-grid { grid-template-columns: 1fr; }
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-      .gallery-item.large { grid-column: span 1; grid-row: span 1; }
-      .process-steps { grid-template-columns: 1fr; }
+      section { padding: 60px clamp(20px, 5vw, 48px); }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-content { padding: 56px 24px 40px; order: 2; }
+      .hero-visual { height: 60vw; max-height: 420px; order: 1; }
+      .hero-visual-card { left: 16px; bottom: 16px; padding: 14px 18px; min-width: 0; }
+      .hero-stat .num { font-size: 1.4rem; }
+      .hero-stat .label { font-size: 0.62rem; }
+      .hero-stat-row { gap: 16px; padding-bottom: 12px; margin-bottom: 12px; }
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .about-visual { aspect-ratio: 3/2; max-height: 380px; }
+      .expertise-grid { grid-template-columns: repeat(2, 1fr); }
+      .expertise-card[style*="span 2"] { grid-column: span 2; }
+      .process-steps { grid-template-columns: 1fr; gap: 24px; }
       .process-steps::before { display: none; }
       .contact-layout { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
       .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .rdv-banner { padding: 56px 24px; }
+      .inline-cta { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .btn-inline-rdv { width: 100%; justify-content: center; }
+      body { padding-bottom: 68px; }
     }
+
+    /* ─── MOBILE 600px ─── */
     @media (max-width: 600px) {
+      section { padding: 48px 18px; }
+      .hero-content { padding: 40px 18px 32px; }
+      .hero h1 { font-size: 2rem; }
+      .hero-visual { height: 72vw; max-height: 340px; }
+      .hero-visual-card { display: none; }
+      .hero-mobile-stats {
+        display: flex;
+        gap: 0;
+        background: var(--surface-alt);
+        border-top: 1px solid var(--border);
+      }
+      .expertise-grid { grid-template-columns: 1fr; }
+      .expertise-card[style*="span 2"] { grid-column: span 1; }
+      .expertise-card[style*="span 2"] > div { grid-template-columns: 1fr !important; }
+      .expertise-card[style*="span 2"] .expertise-card-img { aspect-ratio: 4/3 !important; height: auto !important; }
       .form-grid { grid-template-columns: 1fr; }
-      .hero-stat-row { gap: 16px; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { justify-content: center; width: 100%; }
+      .rdv-banner h2 { font-size: 1.6rem; }
+      .rdv-banner-actions { flex-direction: column; align-items: center; }
+      .btn-doctolib-main { width: 100%; justify-content: center; }
+      .post-process-cta { flex-direction: column; text-align: center; }
+      .btn-inline-rdv { width: 100%; justify-content: center; }
+      .sticky-bar-info { display: none; }
+      .sticky-bar { justify-content: center; padding: 10px 18px; }
+      .sticky-rdv { flex: 1; text-align: center; justify-content: center; display: flex; }
+      .section-title { font-size: 1.7rem; }
     }
   </style>
 </head>
@@ -921,7 +1019,21 @@
     <li><a href="#contact">Contact</a></li>
     <li><a href="https://www.doctolib.fr/chirurgien-maxillo-facial-et-stomatologiste/marseille/jonathan-elbaz" target="_blank" rel="noopener" class="nav-cta">Prendre RDV</a></li>
   </ul>
+
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Menu mobile -->
+<div class="nav-mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">Le Docteur</a>
+  <a href="#expertises" onclick="closeMenu()">Chirurgie Esthétique</a>
+  <a href="#med-esthetique" onclick="closeMenu()">Médecine Esthétique</a>
+  <a href="#consultations" onclick="closeMenu()">Consultations</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="https://www.doctolib.fr/chirurgien-maxillo-facial-et-stomatologiste/marseille/jonathan-elbaz" target="_blank" rel="noopener" class="nav-cta-mobile">Prendre rendez-vous sur Doctolib →</a>
+</div>
 
 <!-- ─── HERO ─── -->
 <div class="hero">
@@ -975,6 +1087,22 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Stats mobiles (sous la photo hero, visibles seulement sur mobile) -->
+<div class="hero-mobile-stats" style="display:none;" id="mobileStats">
+  <div style="flex:1;text-align:center;padding:16px 8px;border-right:1px solid var(--border);">
+    <div style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:600;">2</div>
+    <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-top:2px;">Cabinets</div>
+  </div>
+  <div style="flex:1;text-align:center;padding:16px 8px;border-right:1px solid var(--border);">
+    <div style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:600;">20+</div>
+    <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-top:2px;">Ans d'expérience</div>
+  </div>
+  <div style="flex:1;text-align:center;padding:16px 8px;">
+    <div style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:600;color:var(--gold);">S2</div>
+    <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-top:2px;">Secteur</div>
   </div>
 </div>
 
@@ -1447,8 +1575,8 @@
   <div class="footer-bottom">
     <span>© 2026 Dr Jonathan ELBAZ — Tous droits réservés</span>
     <div style="display:flex;gap:20px;">
-      <a href="#">Mentions légales</a>
-      <a href="#">Politique de confidentialité</a>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="cgu.html">CGU</a>
     </div>
   </div>
 </footer>
@@ -1466,10 +1594,33 @@
 </div>
 
 <script>
+  // Sticky bar
   const stickyBar = document.getElementById('stickyBar');
   window.addEventListener('scroll', () => {
     stickyBar.classList.toggle('visible', window.scrollY > window.innerHeight * 0.6);
   }, { passive: true });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Stats mobiles
+  const mobileStats = document.getElementById('mobileStats');
+  function handleResize() {
+    mobileStats.style.display = window.innerWidth <= 600 ? 'flex' : 'none';
+  }
+  handleResize();
+  window.addEventListener('resize', handleResize);
 
   function handleSubmit(e) {
     e.preventDefault();
