@@ -529,16 +529,17 @@
     }
     .location-card:hover { border-color: var(--gold); }
 
-    .location-card-img {
+    .location-card-map {
       width: 100%;
-      height: 160px;
+      height: 180px;
       overflow: hidden;
       background: var(--surface-alt);
       position: relative;
     }
-    .location-card-img img {
+    .location-card-map iframe {
       width: 100%; height: 100%;
-      object-fit: cover;
+      border: none;
+      display: block;
       filter: grayscale(0.15) contrast(1.05);
     }
     .location-card-img-label {
@@ -738,7 +739,7 @@
   </div>
 
   <div class="hero-visual">
-    <img src="images/docteur-hd.jpg" alt="Dr Jonathan ELBAZ" loading="eager">
+    <img src="images/docteur2.jpg" alt="Dr Jonathan ELBAZ" loading="eager">
     <div class="hero-visual-overlay"></div>
     <div class="hero-visual-card">
       <div class="hero-stat-row">
@@ -1037,9 +1038,12 @@
     <div class="contact-locations">
       <!-- Marseille -->
       <div class="location-card">
-        <div class="location-card-img">
-          <img src="images/bg.jpg" alt="Clinique Chantecler Marseille" loading="lazy">
-          <div class="location-card-img-label">Marseille</div>
+        <div class="location-card-map">
+          <span class="location-card-img-label">Marseille</span>
+          <iframe
+            src="https://maps.google.com/maps?q=240+Avenue+des+Poilus+13012+Marseille&output=embed&z=15"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Clinique Chantecler Marseille">
+          </iframe>
         </div>
         <div class="location-card-body">
           <h3>Clinique Chantecler</h3>
@@ -1058,9 +1062,12 @@
 
       <!-- Aix-en-Provence -->
       <div class="location-card">
-        <div class="location-card-img">
-          <img src="images/bg.jpg" alt="Cabinet Médical Aix-en-Provence" loading="lazy" style="object-position: center 30%;">
-          <div class="location-card-img-label">Aix-en-Provence</div>
+        <div class="location-card-map">
+          <span class="location-card-img-label">Aix-en-Provence</span>
+          <iframe
+            src="https://maps.google.com/maps?q=135+Avenue+Armand+Lunel+13100+Aix-en-Provence&output=embed&z=15"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Cabinet Médical Aix-en-Provence">
+          </iframe>
         </div>
         <div class="location-card-body">
           <h3>Cabinet Médical Charrier</h3>
